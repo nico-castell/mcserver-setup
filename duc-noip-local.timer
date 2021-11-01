@@ -1,0 +1,13 @@
+[Unit]
+Description=No-IP Dynamic Update Client (timer)
+Requires=NetworkManager.service
+After=NetworkManager-wait-online.service
+
+[Timer]
+Unit=duc-noip-local.service
+OnBootSec=5m
+OnUnitInactiveSec=30m
+RandomizedDelaySec=30m
+
+[Install]
+WantedBy=timers.target

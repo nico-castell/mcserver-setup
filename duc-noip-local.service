@@ -1,0 +1,9 @@
+[Unit]
+Description=No-IP Dynamic Update Client
+Requires=NetworkManager.service
+After=NetworkManager-wait-online.service
+Wants=duc-noip-local.timer
+
+[Service]
+Type=oneshot
+ExecStart=noip2

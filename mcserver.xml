@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Install in /etc/firewalld/services -->
+<service>
+	<short>mcserver</short>
+	<description>Minecraft Server</description>
+	<port protocol="tcp" port="25565"/>
+	<port protocol="udp" port="25565"/>
+</service>

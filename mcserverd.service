@@ -1,0 +1,21 @@
+[Unit]
+Description=Minecraft Server
+Requires=NetworkManager.service
+After=NetworkManager-wait-online.service
+
+[Service]
+User=mcserver
+Group=mcserver
+WorkingDirectory=/var/mcserver
+ExecStart=mcserver-run
+Restart=on-failure
+RestartSec=5
+KillSignal=15
+KillMode=process
+TimeoutStopSec=120
+Nice=-17
+IOSchedulingClass=2
+IOSchedulingPriority=0
+
+[Install]
+WantedBy=multi-user.target

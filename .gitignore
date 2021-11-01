@@ -1,0 +1,7 @@
+# Ignore vim files
+*~
+*.swp
+
+# Configure ignore and track for Visual Studio and Visual Studio Code
+.vs/*
+.vscode/*
