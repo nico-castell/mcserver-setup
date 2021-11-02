@@ -4,7 +4,7 @@
 umask 077
 
 # Create the file that will serve as input
-touch /tmp/mcserver-input
+mkfifo /tmp/mcserver-input
 
 # Run the server
 tail -f /tmp/mcserver-input | java   \
