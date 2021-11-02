@@ -66,7 +66,7 @@ the user will be called **mcserver**.
 	configure the *server.properties* file and get a server icon (*server-icon.png*, 64x64
 	resolution).
 
-6. You still have two files to copy, those are:
+6. You still have some files to copy, those are:
 	| File in this folder | Destination                             |
 	| ------------------- | --------------------------------------- |
 	| *mcserver-run.sh*   | */usr/local/bin/mcserver-run*           |
@@ -88,12 +88,29 @@ the user will be called **mcserver**.
 	systemctl daemon-reload
 	```
 
-7. Now, you can finally enable and start the server with systemctl:
+7. Awesome, now we only need to configure the firewall. Assuming you're using the default port for
+	the minecraft server (25565), you need to do the following:
+
+	- If you're on Fedora Serverc, copy the file *mcserver.xml* to */etc/firewalld/services*, you
+		should edit the ports in the file if you're not using the default port, then run the following
+		commands:
+		```bash
+		firewall-cmd --add-service=mcserver --permanent
+		firewall-cmd --reload
+		```
+
+	- If you're on Ubuntu Server, use the **ufw** command. If you're not using the default port, just
+		allow a different port.
+		```bash
+		ufw allow 25565 comment mcserver
+		```
+
+8. Now, you can finally enable and start the server with systemctl:
 	```bash
 	systemctl enable --now mcserverd.service
 	```
 
-8. (Optional) Install [No-Ip's Dynamic Update Client](https://www.noip.com/), this program ensures
+9. (Optional) Install [No-Ip's Dynamic Update Client](https://www.noip.com/), this program ensures
 	you have a DNS pointing to your non-static public IP address.
 
 	You'll need to build from source, so you need build dependencies installed (you can remove them
