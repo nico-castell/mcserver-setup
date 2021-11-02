@@ -120,6 +120,8 @@ the user will be called **mcserver**.
 This guide also comes with a backup script called *compress.sh*, which (you guessed it) creates a
 compressed backup of the server files.
 
+The script uses the **pxz** and **pigz** commands, make sure you have them installed.
+
 Usage:
 1. To run the program, you must first stop the server using systemctl:
 	```bash

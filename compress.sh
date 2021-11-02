@@ -45,9 +45,9 @@ while read -r i; do
 	printf "Compressing server: %s\r" $(echo "scale=2; ($COUNT/$TOTAL_FILES)*100" | bc | sed -e 's/\.[0-9]\{,2\}//g' -e 's/^[0-9]\{,3\}/&%/g')
 done< <(
 case "$METHOD" in
-	xz)  tar -I 'pxz -T 4 -9 -e' -cvf $LOCATION/$FILE_NAME.tar.xz $(basename $MCFOLDER) ;;
-	gz)  tar -I pigz -cvf $LOCATION/$FILE_NAME.tar.gz $(basename $MCFOLDER)             ;;
-	zip) zip -r $LOCATION/$FILE_NAME.zip $(basename $MCFOLDER)                          ;;
+	xz)  tar -I 'pxz -9 -e' -cvf $LOCATION/$FILE_NAME.tar.xz $(basename $MCFOLDER) ;;
+	gz)  tar -I pigz -cvf $LOCATION/$FILE_NAME.tar.gz $(basename $MCFOLDER)        ;;
+	zip) zip -r $LOCATION/$FILE_NAME.zip $(basename $MCFOLDER)                     ;;
 esac
 )
 echo
