@@ -38,7 +38,7 @@ the user will be called **mcserver**.
 
 2. Create the user with reduced permissions (they cannot use sudo or even log in):
 	```bash
-	useradd -M -s /bin/false mcserver
+	useradd -M -s /sbin/nologin mcserver
 	```
 
 3. Create the minecraft server directory:
