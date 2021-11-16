@@ -36,6 +36,12 @@ the user will be called **mcserver**.
 	apt install default-jre-headless    # Java 1.8.0
 	```
 
+	For Debian 11 stable, use:
+	```bash
+	apt install openjdk-17-jre-headless # Java 17
+	apt install default-jre             # Java 11
+	```
+
 2. Create the user with reduced permissions (they cannot use sudo or even log in):
 	```bash
 	useradd -M -s /sbin/nologin mcserver
@@ -44,6 +50,7 @@ the user will be called **mcserver**.
 3. Create the minecraft server directory:
 	```bash
 	mkdir /var/mcserver
+	chown -R mcserver:mcserver mcserver
 	cd /var/mcserver
 	```
 	
@@ -87,6 +94,9 @@ the user will be called **mcserver**.
 	chmod 755 /usr/local/bin/mcserver-run
 	systemctl daemon-reload
 	```
+
+	**NOTE:** On Debian 11, you might have to edit the file */etc/systemd/system/mcserverd.service*
+	to use systemd-networkd, instead of NetworkManager.
 
 7. Awesome, now we only need to configure the firewall. Assuming you're using the default port for
 	the minecraft server (25565), you need to do the following:
