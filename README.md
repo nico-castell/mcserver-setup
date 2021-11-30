@@ -134,7 +134,7 @@ the user will be called **mcserver**.
 	```bash
 	cd /usr/local/src
 	wget http://www.noip.com/client/linux/noip-duc-linux.tar.gz
-	tar xz noip-duc-linux.tar.gz
+	tar -zxf noip-duc-linux.tar.gz
 	cd noip*/
 	make install
 	```
@@ -170,7 +170,7 @@ Usage:
 
 3. (Only) After the script is done, you can restart the server using systemctl:
 	```bash
-	systemctl sart mcserverd.service
+	systemctl start mcserverd.service
 	```
 
 4. NOTE: The *compress.sh* script can execute steps 1 to 3 if you use the `-f` flag, but it is

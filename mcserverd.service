@@ -4,18 +4,40 @@ Requires=NetworkManager.service
 After=NetworkManager-wait-online.service
 
 [Service]
+# Limited user
 User=mcserver
 Group=mcserver
+PrivateUsers=yes
+# Starting and stopping
 WorkingDirectory=/var/mcserver
+ReadWritePaths=/var/mcserver
 ExecStart=mcserver-run
 Restart=on-failure
 RestartSec=5
 KillSignal=15
 KillMode=process
 TimeoutStopSec=120
+# Priority settings
 Nice=-17
 IOSchedulingClass=2
 IOSchedulingPriority=0
+# Security settings
+ProtectProc=invisible
+ProtectHome=yes
+ProtectClock=yes
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_DAC_READ_SEARCH
+RestrictNamespaces=uts ipc pid user cgroup
+SystemCallFilter=@system-service
+ProtectSystem=strict
+PrivateTmp=yes
+NoNewPrivileges=true
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+PrivateDevices=yes
+RestrictSUIDSGID=true
+UMask=077
 
 [Install]
 WantedBy=multi-user.target
