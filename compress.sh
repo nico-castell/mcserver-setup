@@ -9,11 +9,12 @@ while [ -n "$1" ]; do
 case "$1" in
 	-xz) METHOD=xz   ;;
 	-gz) METHOD=gz   ;;
+	-zst) METHOD=zst ;;
 	-zip) METHOD=zip ;;
 	-f) force=yes    ;;
 	*)
 		printf "\e[31mERROR: Option \e[01m%s\e[22m not recognized\e[00m\n" "$1" >&2
-		printf "\e[33mUsage:\e[00m ./%s (-xz | -gz | -zip) (-f)\n" `basename "$0"` >&2
+		printf "\e[33mUsage:\e[00m ./%s (-xz | -gz | -zip)\n" `basename "$0"` >&2
 		exit 1
 	;;
 esac; shift; done
@@ -26,7 +27,7 @@ fi
 
 if [ -z "$METHOD" ]; then
 	printf "\e[31mERROR: You must specify a method\e[00m\n" >&2
-	printf "\e[33mUsage:\e[00m ./%s (-xz | -gz | -zip) (-f)\n" `basename "$0"` >&2
+	printf "\e[33mUsage:\e[00m ./%s (-xz | -gz | -zst | -zip) (-f)\n" `basename "$0"` >&2
 	exit 1
 fi
 
@@ -45,14 +46,16 @@ while read -r i; do
 	printf "Compressing server: %s\r" $(echo "scale=2; ($COUNT/$TOTAL_FILES)*100" | bc | sed -e 's/\.[0-9]\{,2\}//g' -e 's/^[0-9]\{,3\}/&%/g')
 done< <(
 case "$METHOD" in
-	xz)  tar -I 'pxz -9 -e' -cvf $LOCATION/$FILE_NAME.tar.xz $(basename $MCFOLDER) ;;
-	gz)  tar -I pigz -cvf $LOCATION/$FILE_NAME.tar.gz $(basename $MCFOLDER)        ;;
-	zip) zip -r $LOCATION/$FILE_NAME.zip $(basename $MCFOLDER)                     ;;
+	xz)  tar -I 'xz -T0 -9' -cvf $LOCATION/$FILE_NAME.tar.xz $(basename $MCFOLDER)     ;;
+	gz)  tar -I pigz -cvf $LOCATION/$FILE_NAME.tar.gz $(basename $MCFOLDER)            ;;
+	zst) tar -I 'zstd -T0 -19' -cvf $LOCATION/$FILE_NAME.tar.zst $(basename $MCFOLDER) ;;
+	zip) zip -r $LOCATION/$FILE_NAME.zip $(basename $MCFOLDER)                         ;;
 esac
 )
 echo
 
 chown mcserver:mcserver $LOCATION/$FILE_NAME*
+chmod 666 $LOCATION/$FILE_NAME*
 unset COUNT TOTAL_FILES
 
 # Restart the server after it's done backing up.

@@ -76,22 +76,22 @@ the user will be called **mcserver**.
 6. You still have some files to copy, those are:
 	| File in this folder | Destination                             |
 	| ------------------- | --------------------------------------- |
-	| *mcserver-run.sh*   | */usr/local/bin/mcserver-run*           |
+	| *mcserver-run.sh*   | */var/mcserver/mcserver-run*            |
 	| *mcserverd.service* | */etc/systemd/system/mcserverd.service* |
 
 	Make sure you're using the ammount of RAM you want to use by editing the file you copied
-	*/usr/local/bin/mcserver-run*.
+	*/var/mcserver/mcserver-run*. 
 
-	Once you've done that, you need to make sure the file */usr/local/bin/mcserver-run* can be
-	executed by running **chmod 755 /usr/local/bin/mcserver-run**, and reload systemd unit files by
+	Once you've done that, you need to make sure the file */var/mcserver/mcserver-run* can be
+	executed by running **chmod 755 /var/mcserver/mcserver-run*., and reload systemd unit files by
 	running **systemctl daemon-reload**.
 
 	You can do all of that with the commands:
 	```bash
 	cd /path/to/this-folder
-	cp mcserver-run.sh /usr/local/bin/mcserver-run
+	cp mcserver-run.sh /var/mcserver/mcserver-run
 	cp mcserverd.service /etc/systemd/system/mcserverd.service
-	chmod 755 /usr/local/bin/mcserver-run
+	chmod 755 /var/mcserver/mcserver-run
 	systemctl daemon-reload
 	```
 

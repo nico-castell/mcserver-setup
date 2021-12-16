@@ -11,9 +11,7 @@ PrivateUsers=yes
 # Starting and stopping
 WorkingDirectory=/var/mcserver
 ReadWritePaths=/var/mcserver
-ExecStart=mcserver-run
-Restart=on-failure
-RestartSec=5
+ExecStart=/var/mcserver/mcserver-run
 KillSignal=15
 KillMode=process
 TimeoutStopSec=120
